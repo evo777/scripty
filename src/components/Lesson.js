@@ -11,8 +11,26 @@ class Lesson extends Component {
 
     this.state = {
       clicked: false,
-      currentQuestion: 0
+      currentQuestion: 0,
+      data: ""
     }
+  }
+
+  //Adding API retrieving lessons from database in line 20-34
+  getData = () => {
+    fetch('mongodb://localhost/scripty/api/lessons', {
+      method: "GET"
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      console.log(responseJson);
+      this.setState({
+        data: responseJson
+      })
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
   navigate (routeName) {
@@ -40,6 +58,7 @@ class Lesson extends Component {
     }
   }
 
+  //Added the QuestionPrompt in line 84-87
   render() {
     const {viewStyle} = styles;
 
@@ -61,6 +80,11 @@ class Lesson extends Component {
           isCorrectAnswer={isCorrectAnswer} />
         })}
         { this.displayNextButton() }
+
+        <QuestionPrompt
+          dataFromFetch = {this.state.data}
+          getData = {this.getData}
+        />
       </View>
     )
   }
