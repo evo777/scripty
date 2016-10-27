@@ -14,37 +14,12 @@ class Lesson extends Component {
     this.state = {
       clicked: false,
       currentQuestion: 0,
-<<<<<<< HEAD
-      data: ""
-=======
       questions: [],
       pressedButton: ''
->>>>>>> upstream/master
     }
     this.getQuestions();
   }
 
-<<<<<<< HEAD
-  //Adding API retrieving lessons from database in line 20-34
-  getData = () => {
-    fetch('mongodb://localhost/scripty/api/lessons', {
-      method: "GET"
-    })
-    .then((response) => response.json())
-    .then((responseJson) => {
-      console.log(responseJson);
-      this.setState({
-        data: responseJson
-      })
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  }
-
-  navigate (routeName) {
-    this.props.navigator.push({name:routeName});
-=======
   // Fetch the questions from the API
   getQuestions() {
     let url = `http://127.0.0.1:3011/api/lessons/${this.props.id}`;
@@ -57,7 +32,6 @@ class Lesson extends Component {
       let questions = data.lessonContent.sort((a, b) => a.order - b.order)
       this.setState({'questions': questions})
     })
->>>>>>> upstream/master
   }
 
   // Push to the navigator to navigate between views
@@ -85,28 +59,25 @@ class Lesson extends Component {
     }
   }
 
-<<<<<<< HEAD
-  //Added the QuestionPrompt in line 84-87
-=======
   // Find the Question Text, if the questions have loaded
 
   displayQuestionText() {
     let question = this.state.questions[this.state.currentQuestion];
     if (question) {
-      return <QuestionPrompt text={question.text} /> 
+      return <QuestionPrompt text={question.text} />
     }
   }
 
   // If the questions have loaded, display the question
 
-  displayQuestionChoices() { 
+  displayQuestionChoices() {
     let question = this.state.questions[this.state.currentQuestion];
 
     if (question && question.choices)
     return question.choices.map(choice => {
       let isCorrectAnswer;
       let isPressedAnswer;
-  
+
       // Once the user has made a choice, determine if this choice is
       // The correct one, the one they pressed, or neither.
       // For styling purposes inside of the AnswerButton component.
@@ -129,7 +100,6 @@ class Lesson extends Component {
     }
   }
 
->>>>>>> upstream/master
   render() {
     const {viewStyle} = styles;
 
