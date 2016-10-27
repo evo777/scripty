@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Text, View, Dimensions, TouchableHighlight } from 'react-native';
+import { Text, View, Image, Dimensions, TouchableHighlight } from 'react-native';
 
 
 const Login = ({navigator}) => {
-  const { title, viewStyle, cardStyle, textStyle, pinkCardStyle, whiteCardStyle, darkTextStyle, lightTextStyle} = styles;
+  const { title, viewStyle, cardStyle, textStyle, pinkCardStyle, 
+    whiteCardStyle, darkTextStyle, lightTextStyle, imageStyle, imageViewStyle } = styles;
 
   const navigate = (routeName) => {
     navigator.push({name:routeName})
@@ -11,7 +12,12 @@ const Login = ({navigator}) => {
 
   return (
     <View style={viewStyle}>
-      <Text style={title}>Scripty</Text> 
+      <View style={imageViewStyle}>
+        <Image
+          source={require('../../lib/images/wordmarkCoral.png')}
+          style={imageStyle}
+        />
+      </View>
       <TouchableHighlight onPress={navigate.bind(this, 'Home')} style={{...cardStyle, ...pinkCardStyle}} underlayColor={darkCoral} >
         <Text style={lightTextStyle}>Log In</Text>
       </TouchableHighlight>
@@ -37,7 +43,9 @@ const styles = {
     height: Dimensions.get("window").height,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    // flexWrap: 'wrap',
+    // flexDirection: 'row',
   },
   cardStyle: {
     alignItems: 'center',
@@ -48,16 +56,16 @@ const styles = {
     width: Dimensions.get("window").width - 40,
     marginTop: 20,
     borderRadius: 5,
+    position: 'relative',
 
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
   },
   pinkCardStyle: {
     backgroundColor: coral,
   },
   whiteCardStyle: {
     backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: coral,
   },
   darkTextStyle: {
     color: coral,
@@ -69,6 +77,15 @@ const styles = {
     fontSize: 20,
     fontWeight: 'bold',
   },
+  imageStyle: {
+    flex: 1,
+    width: Dimensions.get("window").width - 40,
+    height: undefined,
+    resizeMode: 'contain',
+  },
+  imageViewStyle: {
+    height: 100,
+  }
 }
 
 

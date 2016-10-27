@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
-import { Text, View, Dimensions, StatusBar } from 'react-native';
+import { Text, View, Image, Dimensions, StatusBar } from 'react-native';
 
 
 
 const Header = () => {
-  const { viewStyle, textStyle } = styles;
+  const { viewStyle, textStyle, imageStyle } = styles;
 
   return (
     <View style={viewStyle}>
       <StatusBar barStyle="light-content" />
-      <Text style={textStyle}>Scripty</Text>
+      <Image
+          source={require('../../lib/images/wordmark.png')}
+          style={imageStyle}
+        />
     </View>
   )
 };
@@ -39,7 +42,14 @@ const styles = {
     color: 'white',
     fontSize: 20,
     fontFamily: 'Futura',
-  }
+  },
+  imageStyle: {
+    flex: 1,
+    width: 72,
+    height: undefined,
+    resizeMode: 'contain',
+    marginTop: 5,
+  },
 }
 
 

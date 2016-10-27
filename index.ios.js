@@ -33,7 +33,7 @@ class scripty extends Component {
     } else if (name === 'Login') {
       return <Login navigator={navigator} />
     } else if (name === 'Lesson') {
-      return <Lesson questions={mockLesson.questions} navigator={navigator} />
+      return <Lesson navigator={navigator} {...route.passProps} />
     } else if (name === 'LessonComplete') {
       return <LessonComplete navigator={navigator} />
     }
@@ -44,7 +44,7 @@ class scripty extends Component {
       <Navigator
       style={{ backgroundColor: 'white', }}
       navigationBar={<Header />}
-      initialRoute={{ name:'Login' }}
+      initialRoute={{ name:'Home' }}
       renderScene={this.renderScene}
       />
     )
