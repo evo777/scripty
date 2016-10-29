@@ -3,6 +3,8 @@ import { Text, View, Dimensions, TouchableHighlight } from 'react-native';
 import QuestionPrompt from './QuestionPrompt';
 import AnswerButton from './AnswerButton';
 import NextButton from './NextButton';
+import ProgressBar from './ProgressBar';
+
 
 
 class Lesson extends Component {
@@ -100,11 +102,17 @@ class Lesson extends Component {
     }
   }
 
+  // Find out how far through the lesson the user is
+  calculateProgress() {
+    return this.state.currentQuestion / this.state.questions.length;
+  }
+
   render() {
     const {viewStyle} = styles;
 
     return (
       <View style={viewStyle}>
+        <ProgressBar progress={this.calculateProgress()} />
         { this.displayQuestionText() }
         { this.displayQuestionChoices() }
         { this.displayNextButton() }

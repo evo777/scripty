@@ -1,10 +1,10 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var log = require('../../api/helpers/log');
+const log = require('../../helpers/log');
 
-var Lesson = require('../models/lesson');
-var Reading = require('../models/reading');
-var Problem = require('../models/problem');
+const Lesson = require('../models/lesson');
+const Reading = require('../models/reading');
+const Problem = require('../models/problem');
 
 /*
  *  DATAYPE: Lesson
@@ -13,7 +13,7 @@ var Problem = require('../models/problem');
  *  @description <String> alias lessonDescription
  *  @contents <Array[Content]> alias lessonContents
  */
-var testlesson = {
+const testlesson = {
   title: 'Hello World',
   description: 'Welcome to Javascript!',
   contents: [
@@ -30,13 +30,13 @@ var testlesson = {
   ]
 };
 
-var createdLesson = new Lesson({
+const createdLesson = new Lesson({
   title: testlesson.title,
   description: testlesson.description,
 })
-.save(function(err, lesson) {
+.save((err, lesson) => {
   if (err) {
-    log({color: 'red'}, 'Error saving test lesson.', err);
+    log.error('Error saving test lesson.', err);
   }
 
   new Reading({
@@ -44,9 +44,9 @@ var createdLesson = new Lesson({
     text: testlesson.contents[0].text,
     lessonId: mongoose.Types.ObjectId(lesson._id)
   })
-  .save(function(err) {
+  .save(err => {
     if (err) {
-      log({color: 'red'}, 'Error saving test reading.', err);
+      log.error('Error saving test reading.', err);
     }
   });
 
@@ -57,9 +57,9 @@ var createdLesson = new Lesson({
     answer: testlesson.contents[1].answer,
     lessonId: mongoose.Types.ObjectId(lesson._id)
   })
-  .save(function(err) {
+  .save(err => {
     if (err) {
-      log({color: 'red'}, 'Error saving test problem.', err);
+      log.error('Error saving test problem.', err);
     }
   });
 });

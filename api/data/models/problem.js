@@ -1,6 +1,6 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var problemSchema = mongoose.Schema({
+const problemSchema = mongoose.Schema({
   order: {type: Number, default: 0},
   text: String,
   choices: [String],
@@ -8,6 +8,6 @@ var problemSchema = mongoose.Schema({
   lessonId: mongoose.Schema.Types.ObjectId
 });
 
-var Problem = mongoose.model('Problem', problemSchema);
+const Problem = mongoose.model('Problem', problemSchema);
 
 module.exports = Problem;
