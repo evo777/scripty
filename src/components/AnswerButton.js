@@ -21,7 +21,7 @@ const AnswerButton = ({ possibleAnswer, handleAnswerButtonClick, isCorrectAnswer
   }
 
   return (
-    <TouchableHighlight onPress={handleAnswerButtonClick.bind(this, possibleAnswer)} style={cardStyle} underlayColor={grey} >
+    <TouchableHighlight onPress={handleAnswerButtonClick.bind(this, possibleAnswer)} style={cardStyle} underlayColor={'white'} >
       <Text style={textStyle}>{possibleAnswer}</Text>
     </TouchableHighlight>
   )

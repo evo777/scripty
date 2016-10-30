@@ -10,14 +10,13 @@ import ProgressBar from './ProgressBar';
 class Lesson extends Component {
   constructor(props) {
     super(props);
-
-    console.log('PROPS => ', props.id)
-
     this.state = {
       clicked: false,
       currentQuestion: 0,
       questions: [],
-      pressedButton: ''
+      pressedButton: '',
+      numberCorrect: 0,
+      numberIncorrect: 0,
     }
     this.getQuestions();
   }
@@ -38,13 +37,29 @@ class Lesson extends Component {
 
   // Push to the navigator to navigate between views
   navigate (routeName) {
-    this.props.navigator.push({name:routeName});
+    this.props.navigator.push({
+      name:routeName,
+      passProps: {
+        numberCorrect: this.state.numberCorrect,
+        numberIncorrect: this.state.numberIncorrect
+      }
+    });
   }
 
   // When any choice is clicked, change the state of this parent component to reflect that action
   handleAnswerButtonClick(buttonText) {
     this.setState({ clicked: true });
     this.setState({ pressedButton: buttonText });
+
+    // Also keeping track of correct and incorrect answers - NOT WORKING YET
+    // State looks like it changes in here, but is not reflected in render or navigate
+    let question = this.state.questions[this.state.currentQuestion];
+
+    if (buttonText === question.answer) {
+      this.setState({ numberCorrect: this.state.numberCorrect + 1})
+    } else {
+      this.setState({ numberIncorrect: this.state.numberIncorrect + 1})
+    }
   }
 
   // Move the pointer to the next question
@@ -72,6 +87,7 @@ class Lesson extends Component {
 
   // If the questions have loaded, display the question
 
+
   displayQuestionChoices() {
     let question = this.state.questions[this.state.currentQuestion];
 
@@ -97,8 +113,9 @@ class Lesson extends Component {
   // Only display next button when a choice has been pressed
   displayNextButton() {
     let question = this.state.questions[this.state.currentQuestion];
+
     if (this.state.clicked || !question || !question.choices) {
-      return <NextButton handleNextButtonClick={this.handleNextButtonClick.bind(this)}/>
+      return <NextButton handleNextButtonClick={() => this.handleNextButtonClick.call(this)} />
     }
   }
 
@@ -110,6 +127,9 @@ class Lesson extends Component {
   render() {
     const {viewStyle} = styles;
 
+    // A lot of things in this component are dependent on state
+    // and user actions, so we return them from functions (or not)
+    // that determine whether they should be rendered
     return (
       <View style={viewStyle}>
         <ProgressBar progress={this.calculateProgress()} />
