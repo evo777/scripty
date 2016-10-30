@@ -8,7 +8,7 @@ Use props to make small changes in components, particularly around styling and t
 
 Only use stateful class components when necessary, otherwise use functional components.
 
-Break functionality into small, specific functions. 
+Break functionality into small, specific functions.
 
 If you're passing a function prop that utilizes parent state, don't forget to bind the context to the function.
 
@@ -31,8 +31,8 @@ Do it wherever you can.
 
 Destructuring should be denoted by spaces between the outermost variables and the curly braces. This avoids any confusion between destructured variables and JSX properties and allows for easy reference to the variables we have access to within a given component.
 
-Good: { prop1, prop2 } 
-Bad: {prop1, prop2} 
+Good: { prop1, prop2 }
+Bad: {prop1, prop2}
 
 
 __React Native__
@@ -48,7 +48,7 @@ A __TouchableHighlight__ is a View that can be pressed. Style it the same way an
 
 A __ScrollView__ is just a scrollable View. Other than being able to scroll, it works the same way as a normal View.
 
-A __Navigator__ creates a stack that you push a routeName to in order to navigate to that view, and pop() to go back. 
+A __Navigator__ creates a stack that you push a routeName to in order to navigate to that view, and pop() to go back.
 
 You use a chain of if else statements to determine which route has been passed and, accordingly, which component to render.
 
@@ -61,7 +61,24 @@ If you're working on a specific component, don't waste time navigating to that v
 
 ## Api routes
 
-| URL              | HTTP Method | Request Body | Result                                                          |
-|:----------------:|:-----------:|:------------:|:---------------------------------------------------------------:|
-| /api/lessons     | GET         | empty        | JSON of all lessons' titles, descriptions and ids.
-| /api/lessons/:id | GET         | empty        | JSON of the lesson with `id`, as well as its readings/questions.
+These routes currently exist to cover the width and breadth of CRUD actions. As written they may not all be useful nor specified correctly. Feel free to change the heck out of them.
+
+| Complete | URL                | Method | Request Body | Result                                                          |
+|:--------:|:------------------:|:------:|:------------:|:---------------------------------------------------------------:|
+| ✓        | /api/lessons       | GET    | empty        | JSON of all lessons' titles, descriptions and ids.              |
+| ✓        | /api/lessons/:id   | GET    | empty        | JSON of the lesson with `id`, as well as its readings/questions.|
+|          | /api/lessons       | POST   | JSON         | Create a new lesson in the db.                                  |
+|          | /api/lessons/:id   | PUT    | JSON         | Update an existing lesson with `id`, if it exists.              |
+|          | /api/lessons/:id   | DELETE | empty        | Delete an existing lesson with `id`, if it exists.              |
+|:--------:|:------------------:|:------:|:------------:|:---------------------------------------------------------------:|
+|          | /api/users         | GET    | empty        |                                                                 |
+|          | /api/users/:id     | GET    | empty        |                                                                 |
+|          | /api/users         | POST   | JSON         |                                                                 |
+|          | /api/users/:id     | PUT    | JSON         |                                                                 |
+|          | /api/users/:id     | DELETE | empty        |                                                                 |
+|:--------:|:------------------:|:------:|:------------:|:---------------------------------------------------------------:|
+|          | /api/content/:type | GET    | empty        |                                                                 |
+|          | /api/content/:id   | GET    | empty        |                                                                 |
+|          | /api/content       | POST   | JSON         |                                                                 |
+|          | /api/content/:id   | PUT    | JSON         |                                                                 |
+|          | /api/content/:id   | DELETE | empty        |                                                                 |

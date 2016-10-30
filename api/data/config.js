@@ -1,3 +1,8 @@
+/* Config.js
+ *
+ * This file handles connecting to the database and loads dummy data.
+ **/
+
 var mongoose = require('mongoose');
 var log = require('../helpers/log');
 
@@ -13,4 +18,6 @@ connection.once('open', function() {
 
 module.exports = connection;
 
-var testData = require('./population');
+// Import dummy data provided by dummy-data/index.js
+// For debug and testing purposes only
+var dummyData = require('./dummy-data');
