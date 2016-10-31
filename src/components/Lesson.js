@@ -81,21 +81,19 @@ class Lesson extends Component {
   displayQuestionText() {
     let question = this.state.questions[this.state.currentQuestion];
     if (question) {
-      return <QuestionPrompt text={question.text} />
+      return <QuestionPrompt text={question.text} /> 
     }
   }
 
   // If the questions have loaded, display the question
-
-
-  displayQuestionChoices() {
+  displayQuestionChoices() { 
     let question = this.state.questions[this.state.currentQuestion];
 
     if (question && question.choices)
     return question.choices.map(choice => {
       let isCorrectAnswer;
       let isPressedAnswer;
-
+  
       // Once the user has made a choice, determine if this choice is
       // The correct one, the one they pressed, or neither.
       // For styling purposes inside of the AnswerButton component.
@@ -103,7 +101,7 @@ class Lesson extends Component {
         isCorrectAnswer = choice === question.answer;
         isPressedAnswer = choice === this.state.pressedButton;
       }
-
+      
       return <AnswerButton possibleAnswer={choice} key={choice}
       handleAnswerButtonClick={this.handleAnswerButtonClick.bind(this)}
       isCorrectAnswer={isCorrectAnswer} isPressedAnswer={isPressedAnswer} />
@@ -136,11 +134,6 @@ class Lesson extends Component {
         { this.displayQuestionText() }
         { this.displayQuestionChoices() }
         { this.displayNextButton() }
-
-        <QuestionPrompt
-          dataFromFetch = {this.state.data}
-          getData = {this.getData}
-        />
       </View>
     )
   }
