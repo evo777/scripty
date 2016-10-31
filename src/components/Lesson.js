@@ -41,7 +41,7 @@ class Lesson extends Component {
       name:routeName,
       passProps: {
         numberCorrect: this.state.numberCorrect,
-        numberIncorrect: this.state.numberIncorrect
+        numberIncorrect: this.state.numberIncorrect, 
       }
     });
   }
@@ -114,7 +114,7 @@ class Lesson extends Component {
   displayNextButton() {
     let question = this.state.questions[this.state.currentQuestion];
 
-    if (this.state.clicked || !question || !question.choices) {
+    if (this.state.clicked || !question || question.type === 'reading') {
       return <NextButton handleNextButtonClick={() => this.handleNextButtonClick.call(this)} />
     }
   }

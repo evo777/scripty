@@ -1,7 +1,8 @@
 # scripty
 
-## Styleguide
+## Style Guide
 __Components__
+
 Keep components as concise and modular as possible.
 
 Use props to make small changes in components, particularly around styling and text content, rather than a specific component.
@@ -20,6 +21,7 @@ Every view should have a single parent component that handles functionality and 
 Parent components should have concise return statements primarily containing custom child components (rather than nested View and Text elements) that each handle their own styling and content.
 
 __Styling__
+
 All styling is done inline.
 
 It's better to repeat ourselves for the sake of clarity and ease-of-access to styles than to be confused or have to go searching for styles in another document.
@@ -27,6 +29,7 @@ It's better to repeat ourselves for the sake of clarity and ease-of-access to st
 All views should have a background, even if it's the default white, so that the navigation animations work nicely.
 
 __Destructuring__
+
 Do it wherever you can.
 
 Destructuring should be denoted by spaces between the outermost variables and the curly braces. This avoids any confusion between destructured variables and JSX properties and allows for easy reference to the variables we have access to within a given component.
@@ -36,6 +39,7 @@ Bad: {prop1, prop2}
 
 
 __React Native__
+
 For the most part, React Native is just React.
 
 A few differences:

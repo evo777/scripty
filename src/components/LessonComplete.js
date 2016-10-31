@@ -2,21 +2,20 @@ import React, { Component } from 'react';
 import { Text, View, Dimensions, TouchableHighlight } from 'react-native';
 
 const LessonComplete = ({ navigator, numberCorrect, numberIncorrect }) => {
-  const { viewStyle, cardStyle, textStyle, bigTextStyle, greenText, redText, results } = styles;
+  const { viewStyle, cardStyle, textStyle, bigTextStyle, greenText, redText, subHead } = styles;
 
   const navigate = (routeName) => {
     navigator.push({name:routeName});
   };
+
+  let total = numberCorrect + numberIncorrect;
 
   return (
     <View style={viewStyle}>
       <Text style={bigTextStyle}>
         Congratulations!
       </Text>
-      <Text style={{fontSize: 20, marginBottom: 10}}>
-        You finished the lesson!
-      </Text>
-      <Text style={results} ><Text style={greenText}>{numberCorrect}</Text> - <Text style={redText}>{numberIncorrect}</Text></Text>
+      <Text style={subHead}> You got {numberCorrect} out of {total} correct! </Text>
 
       <TouchableHighlight style={cardStyle} underlayColor={darkerBlue} onPress={navigate.bind(this, 'Home')}>
         <Text style={textStyle} > Home </Text>
@@ -62,9 +61,9 @@ const styles = {
     fontFamily: 'Futura',
     marginBottom: 10,
   },
-  results: {
-    fontWeight: 'bold',
-    fontSize: 20,
+  subHead: {
+    fontSize: 20, 
+    marginBottom: 10,
   },
   greenText: {
     color: green,
