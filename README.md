@@ -1,5 +1,15 @@
 # scripty
 
+## Running the API server.
+
+We recommend running a `mongod` process pointed to a local folder, for ease of development.
+
+```shell
+mkdir db
+mongod --dbpath=./db
+node api/app.js
+```
+
 ## Style Guide
 __Components__
 
