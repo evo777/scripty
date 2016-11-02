@@ -10,6 +10,22 @@ mongod --dbpath=./db
 node api/app.js
 ```
 
+## Progress
+
+- [x] Inital Login Screen 
+- [x] Login Modal
+- [x] Lesson Titles / Home View
+- [x] Lesson Titles Loading from db via API request
+- [x] Lesson content dynamically loading from API request after lesson title press
+- [x] Navigating through questions in the right order and rendering buttons correctly depending on question type
+- [x] Tracking correct answers through the course of the lesson
+- [ ] Saving user scores
+- [ ] User Auth and API/db connection
+- [ ] User profile screen
+- [ ] Connecting with friends to see their progress
+- [ ] Allow for different types of lesson content beyond just readings and multiple choice (fill-in-the-blank questions?)
+- [ ] User achievements
+ 
 ## Style Guide
 __Components__
 
