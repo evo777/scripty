@@ -39,12 +39,13 @@ Break functionality into small, specific functions.
 
 If you're passing a function prop that utilizes parent state, don't forget to bind the context to the function.
 
-
 If there are blocks of JSX in a parent component, it's time to break that out into a child.
 
 Every view should have a single parent component that handles functionality and rendering for smaller, more specific child components.
 
 Parent components should have concise return statements primarily containing custom child components (rather than nested View and Text elements) that each handle their own styling and content.
+
+Keep state on the parent components (rather than the children) as long as it's possible and makes sense.
 
 __Styling__
 
