@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, Dimensions, TouchableHighlight } from 'react-native';
 
 
-const AnswerButton = ({ possibleAnswer, handleAnswerButtonClick, isCorrectAnswer, isPressedAnswer }) => {
+const AnswerButton = ({ possibleAnswer, index, handleAnswerButtonClick, isCorrectAnswer, isPressedAnswer }) => {
 
   const { viewStyle, baseCardStyle, correctCardStyle, incorrectCardStyle, baseTextStyle, selectedTextStyle } = styles;
 
@@ -21,7 +21,7 @@ const AnswerButton = ({ possibleAnswer, handleAnswerButtonClick, isCorrectAnswer
   }
 
   return (
-    <TouchableHighlight onPress={handleAnswerButtonClick.bind(this, possibleAnswer)} style={cardStyle} underlayColor={'white'} >
+    <TouchableHighlight onPress={handleAnswerButtonClick.bind(this, possibleAnswer, index)} style={cardStyle} underlayColor={'white'} >
       <Text style={textStyle}>{possibleAnswer}</Text>
     </TouchableHighlight>
   )

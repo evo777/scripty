@@ -1,18 +1,28 @@
 import React, { Component } from 'react';
-import { Text, View, Image, Dimensions, StatusBar } from 'react-native';
+import { Text, View, Image, Dimensions, StatusBar, TouchableHighlight } from 'react-native';
+
+const renderBackButton = (name, navigator) => {
+  if(name === "LessonDetail"){
+    return <TouchableHighlight underlayColor="#FA848A" onPress={navigator.pop} style={{flex: 2, height: 20}}><Text style={{color: "white", left: 20}}>Back</Text></TouchableHighlight>
+  }
+  else {
+    return <TouchableHighlight style={{flex: 2}}><Text></Text></TouchableHighlight>
+  }
+}
 
 
-
-const Header = () => {
+const Header = ({name, navigator}) => {
   const { viewStyle, textStyle, imageStyle } = styles;
 
   return (
     <View style={viewStyle}>
       <StatusBar barStyle="light-content" />
+      {renderBackButton(name, navigator)}
       <Image
           source={require('../../lib/images/wordmark.png')}
           style={imageStyle}
         />
+      <TouchableHighlight style={{flex: 2}}><Text></Text></TouchableHighlight>
     </View>
   )
 };
@@ -36,7 +46,9 @@ const styles = {
     // elevation: 2,
     position:'absolute',
     top:0,
-    left:0
+    left:0,
+    flex: 1,
+    flexDirection: 'row'
   },
   textStyle: {
     color: 'white',
@@ -44,9 +56,9 @@ const styles = {
     fontFamily: 'Futura',
   },
   imageStyle: {
-    flex: 1,
-    width: 72,
-    height: undefined,
+    flex: 8,
+    width: 50,
+    height: 25,
     resizeMode: 'contain',
     marginTop: 5,
   },

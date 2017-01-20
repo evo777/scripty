@@ -11,12 +11,18 @@ class Login extends Component {
       modalVisible: false,
       username: '',
       password: '',
+      error: false
     };
   }
 
   // Navigation - Push to navigator to go to that specific route.
-  navigate(routeName) {
-    this.props.navigator.push({name:routeName})
+  navigate(routeName, user) {
+    this.props.navigator.push({
+      name:routeName,
+      passProps: {
+      user: user
+      }
+    });
   }
 
   // Change the state to make the modal visible
@@ -24,11 +30,30 @@ class Login extends Component {
     this.setState({modalVisible: visible});
   }
 
-  // When the user presses the button on the modal, 
+  // When the user presses the button on the modal,
   // dismiss it and navigate to the home route
   handleModalLoginButtonPress() {
-    this.setModalVisible(false);
-    this.navigate('Home');
+    var self = this;
+    var user = null;
+    console.log(self.state.password)
+    fetch('http://localhost:3011/api/users/auth/' + self.state.username, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        "username": this.state.username,
+        "password": this.state.password
+      })
+    })
+      .then(response => response.json())
+      .then(response => {
+          console.log(response)
+          self.setModalVisible(false);
+          self.navigate('Lesson', response);
+      })
+      .catch(err => console.log(err))
   }
 
   // Set username from within modal
@@ -42,26 +67,22 @@ class Login extends Component {
   }
 
   render() {
-    const { title, viewStyle, cardStyle, textStyle, pinkCardStyle, 
+    const { title, viewStyle, cardStyle, textStyle, pinkCardStyle,
       whiteCardStyle, darkTextStyle, lightTextStyle, imageStyle, imageViewStyle,
       textInputStyle } = styles;
     return (
       <View style={viewStyle}>
-        <SignInForm visible={this.state.modalVisible} 
-        handleModalLoginButtonPress={this.handleModalLoginButtonPress.bind(this)}
-        setUsername={this.setUsername.bind(this)} 
-        setPassword={this.setPassword.bind(this)} />
         <View style={imageViewStyle}>
           <Image
             source={require('../../lib/images/wordmarkCoral.png')}
             style={imageStyle}
           />
         </View>
-        <TouchableHighlight onPress={() => this.setModalVisible(true)} style={{...cardStyle, ...pinkCardStyle}} underlayColor={darkCoral} >
+        <TouchableHighlight onPress={this.navigate.bind(this, 'LogIn')} style={{...cardStyle, ...pinkCardStyle}} underlayColor={darkCoral} >
           <Text style={lightTextStyle}>Log In</Text>
         </TouchableHighlight>
 
-        <TouchableHighlight onPress={() => this.setModalVisible(true)} style={{...cardStyle, ...whiteCardStyle}} underlayColor={grey}>
+        <TouchableHighlight onPress={this.navigate.bind(this, 'SignUp')} style={{...cardStyle, ...whiteCardStyle}} underlayColor={grey}>
           <Text style={darkTextStyle}>Sign Up</Text>
         </TouchableHighlight>
       </View>

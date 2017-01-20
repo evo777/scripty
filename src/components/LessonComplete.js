@@ -1,12 +1,41 @@
 import React, { Component } from 'react';
 import { Text, View, Dimensions, TouchableHighlight } from 'react-native';
 
-const LessonComplete = ({ navigator, numberCorrect, numberIncorrect }) => {
+const LessonComplete = ({ navigator, numberCorrect, numberIncorrect, user, lessonId, lessonTitle, lessonType }) => {
   const { viewStyle, cardStyle, textStyle, bigTextStyle, greenText, redText, subHead } = styles;
 
   const navigate = (routeName) => {
-    navigator.push({name:routeName});
+    navigator.push({
+      name:routeName,
+      passProps: {
+      user: user,
+      type: lessonType
+      }
+    });
   };
+
+  const finishLesson = () => {
+    console.log(user.username)
+    fetch('http://localhost:3011/api/users/' + user.username, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        "lessonId": lessonId,
+        "title": lessonTitle,
+        "score": numberCorrect,
+        "questionNumber": numberCorrect + numberIncorrect
+      })
+    })
+      .then(response => response.json())
+      .then(response => {
+        user = response;
+        navigate('LessonList');
+      })
+    console.log(lessonTitle)
+  }
 
   let total = numberCorrect + numberIncorrect;
 
@@ -17,7 +46,7 @@ const LessonComplete = ({ navigator, numberCorrect, numberIncorrect }) => {
       </Text>
       <Text style={subHead}> You got {numberCorrect} out of {total} correct! </Text>
 
-      <TouchableHighlight style={cardStyle} underlayColor={darkerBlue} onPress={navigate.bind(this, 'Home')}>
+      <TouchableHighlight style={cardStyle} underlayColor={darkerBlue} onPress={finishLesson}>
         <Text style={textStyle} > Home </Text>
       </TouchableHighlight>
     </View>
@@ -62,12 +91,12 @@ const styles = {
     marginBottom: 10,
   },
   subHead: {
-    fontSize: 20, 
+    fontSize: 20,
     marginBottom: 10,
   },
   greenText: {
     color: green,
-  }, 
+  },
   redText: {
     color: incorrectRed,
   }

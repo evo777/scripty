@@ -20,6 +20,7 @@ const mongoose = require('mongoose');
 const lessonSchema = mongoose.Schema({
   title: String,
   description: String,
+  type: String
 });
 
 const Lesson = mongoose.model('Lesson', lessonSchema);

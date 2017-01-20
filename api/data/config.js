@@ -6,7 +6,7 @@
 var mongoose = require('mongoose');
 var log = require('../helpers/log');
 
-mongoose.connect('mongodb://localhost/scripty');
+mongoose.connect('mongodb://user:password@ds059135.mlab.com:59135/scripty');
 
 var connection = mongoose.connection;
 

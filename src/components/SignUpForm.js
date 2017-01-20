@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, Image, Modal, Dimensions, TouchableHighlight, TextInput } from 'react-native';
 
 
-class SignInForm extends Component {
+class SignUpForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,9 +14,9 @@ class SignInForm extends Component {
 
   navigate(routeName, userData) {
     console.log(this.props)
-    if (this.props.user === 'signUp') {
+    if (this.props.user === 'signIn') {
       this.props.navigator.pop();
-      return;
+      return
     }
     console.log(routeName)
     this.props.navigator.push({
@@ -38,10 +38,9 @@ class SignInForm extends Component {
   }
 
 
-  handleLogin() {
+  handleSignUp() {
     var self = this;
-    var user = null;
-    fetch('http://localhost:3011/api/users/auth/' + self.state.username, {
+    fetch('http://localhost:3011/api/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -67,7 +66,7 @@ class SignInForm extends Component {
     const { darkTextStyle } = styles;
     if(this.state.error) {
       return (
-        <View><Text style={darkTextStyle}>Error Please Try Again!</Text></View>
+        <View><Text style={darkTextStyle}>Username Taken Please Another!</Text></View>
       )
     }
   }
@@ -85,7 +84,7 @@ class SignInForm extends Component {
               style={imageStyle}
             />
           </View>
-          <Text style={darkTextStyle}>Log In</Text>
+          <Text style={darkTextStyle}>Sign Up</Text>
           <View>
             <TextInput
               style={textInputStyle}
@@ -106,11 +105,11 @@ class SignInForm extends Component {
             />
           </View>
 
-          <TouchableHighlight onPress={this.handleLogin.bind(this)} style={{...cardStyle, ...pinkCardStyle}} underlayColor={darkCoral} >
-            <Text style={lightTextStyle}>Sign In</Text>
+          <TouchableHighlight onPress={this.handleSignUp.bind(this)} style={{...cardStyle, ...pinkCardStyle}} underlayColor={darkCoral} >
+            <Text style={lightTextStyle}>Sign Up</Text>
           </TouchableHighlight>
           {this.renderError()}
-          <View><Text style={darkTextStyle} onPress={this.navigate.bind(this, 'SignUp', 'signIn')} >Not a member? Sign Up Here!</Text></View>
+          <View><Text style={darkTextStyle} onPress={this.navigate.bind(this, 'SignIn', 'signUp')} >Already a member? Sign In Here!</Text></View>
         </View>
       </View>
     )
@@ -188,4 +187,4 @@ const styles = {
 }
 
 
-export default SignInForm;
+export default SignUpForm;

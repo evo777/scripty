@@ -28,20 +28,24 @@ app.use((req, res, next) => {
 
 // Define routes
 app.get('/api/lessons', lessonHandlers.getAllLessons);
+app.get('/api/lessons/language/:type', lessonHandlers.getAllLessonsByType);
 app.get('/api/lessons/:id', lessonHandlers.getLessonAndContentsById);
 app.post('/api/lessons', lessonHandlers.createLesson);
 app.put('/api/lessons/:id', lessonHandlers.updateLessonById);
 app.delete('/api/lessons/:id', lessonHandlers.deleteLessonById);
 
-app.get('/api/users', userHandlers.getUsers);
-app.get('/api/users/:id', userHandlers.getUserById);
+app.get('/api/users', userHandlers.getAllScores);
+app.post('/api/users/auth/:username', userHandlers.checkAuthentication);
 app.post('/api/users', userHandlers.createUser);
-app.put('/api/users/:id', userHandlers.updateUserById);
-app.delete('/api/users/:id', userHandlers.deleteUserById);
+app.post('/api/users/:username', userHandlers.addCompletedLesson);
+app.put('/api/users/:username', userHandlers.updateUserByUsername);
+app.delete('/api/users/:username', userHandlers.deleteUserByUsername);
 
-app.get('/api/content/:type', contentHandlers.getContentByType);
+// below is commented out because they had two different GET routes for the same URL
+// app.get('/api/content/:type', contentHandlers.getContentByType);
+app.get('/api/content', contentHandlers.getContent);
 app.get('/api/content/:id', contentHandlers.getContentById);
-app.post('/api/content', contentHandlers.createContent);
+app.post('/api/content/:id', contentHandlers.createContent);
 app.put('/api/content/:id', contentHandlers.updateContentById);
 app.delete('/api/content/:id', contentHandlers.deleteContentById);
 

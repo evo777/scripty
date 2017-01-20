@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Lesson = require('../data/models/lesson');
 const Content = require('../data/models/content');
+const contentHandlers = require('./content-route-handlers');
 
 const ObjectId = mongoose.Types.ObjectId;
 
@@ -15,6 +16,18 @@ exports.getAllLessons = (req, res) => {
       return;
     }
     res.status(200).json(lessons);
+  });
+};
+
+exports.getAllLessonsByType = (req, res) => {
+  const type = req.params.type;
+
+  Lesson.find({type: type}, (err, lessons) => {
+    if (err) {
+      send500(res, 'Error retrieving content.', err);
+      return;
+    }
+    res.status(200).send(lessons);
   });
 };
 
@@ -39,35 +52,43 @@ exports.getLessonAndContentsById = (req, res) => {
   });
 };
 
-// TODO(Mitch): Needs testing.
 exports.createLesson = (req, res) => {
-  const {title, description, content} = req.body;
+  const {title, description, type} = req.body;
 
-  // Check intergrity of lesson content
-  if (content.length === 0) {
-    send500(res, 'Lesson submitted without content.');
-    return;
-  }
-
-  new Lesson({title, description})
-    .save((err, lesson) => {
-      content.forEach((item, index) => {
-        if (item.order === undefined) { item.order = index; }
-
-        new Content(item)
-          .save(err => err ? log.error(err) : null);
-      });
+  new Lesson({title, description, type})
+    .save().then((lesson) => {
+      log.info(lesson);
+      res.status(201).json(lesson);
     });
 
-  res.status(201).send();
 };
 
 exports.updateLessonById = (req, res) => {
   const id = req.params.id;
-  //TODO(Mitch): Fill me in!
+  var data = req.body;
+
+  Lesson.findOneAndUpdate({_id: id}, data, {new: true}, function(err, doc) {
+    if (err) {
+      log.error(err)
+    }
+    return doc;
+  });
+
+  res.status(201).send("updated a lesson");
 };
 
 exports.deleteLessonById = (req, res) => {
   const id = req.params.id;
-  //TODO(Mitch): Fill me in!
+
+  Lesson.findOneAndRemove({_id: id}, function(err, doc) {
+    if (err) {
+      log.error(err)
+    }
+    return doc;
+  });
+
+  contentHandlers.deleteAllContentsByLessonId(id);
+  res.status(200).send("deleted lesson");
 };
+
+
